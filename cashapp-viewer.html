@@ -17,7 +17,7 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: #1a1a2e;
+            background: #011530;
             min-height: 100vh;
             padding: 20px;
             display: flex;
@@ -54,9 +54,9 @@
 
         .container {
             max-width: 95%;
-            width: auto;
+            width: 780px;
             background: #022447;
-            border: 2px solid #FFF;
+            border: 2px solid #008BC4;
             border-radius: 10px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.5);
             overflow: hidden;
@@ -66,11 +66,10 @@
         .header {
             background: #008BC4;
             color: #FFF;
-            padding: 8px 20px;
+            padding: 10px 16px;
             text-align: center;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
-            border-bottom: 1px solid #FFF;
         }
 
         .header-text {
@@ -80,81 +79,148 @@
         }
 
         .content-wrapper {
-            padding: 20px;
             display: flex;
-            gap: 20px;
-            align-items: flex-start;
+            align-items: stretch;
         }
 
         .data-section {
-            flex: 0 1 auto;
+            flex: 1;
+            padding: 16px 20px;
             min-width: 0;
         }
 
         .image-section {
-            flex: 0 0 auto;
-            max-width: 450px;
+            flex: 0 0 320px;
+            background: #033556;
+            border-left: 1px solid #008BC4;
+            padding: 16px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
         }
 
         h1 {
             color: #00E6F0;
-            margin: 0 0 15px 0;
+            margin: 0 0 12px 0;
             border-bottom: 2px solid #00E6F0;
             padding-bottom: 10px;
-            font-size: 1.8em;
-        }
-
-        .profile-image {
-            text-align: center;
+            font-size: 1.4em;
         }
 
         .profile-image img {
-            width: 100%;
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
             border: 2px solid #008BC4;
-            object-fit: contain;
-            border-radius: 8px;
+            border-radius: 6px;
+            display: block;
         }
 
         .no-image {
             background: #013a5c;
-            padding: 30px;
+            padding: 30px 16px;
             border-radius: 8px;
             color: #999;
             text-align: center;
-            font-size: 16px;
-            border: 1px solid #008BC4;
+            font-size: 13px;
+            border: 1px dashed #008BC4;
         }
 
         .data-row {
-            padding: 8px 0;
-            border-bottom: 1px solid #008BC4;
+            padding: 6px 0;
+            border-bottom: 1px solid #1a5276;
             color: #CCC;
-        }
-
-        .data-row:last-child {
-            border-bottom: none;
-        }
-
-        .data-label {
-            display: inline;
-            font-weight: normal;
+            font-size: 13px;
         }
 
         .data-value {
-            display: inline;
             color: #FFF;
-            font-family: Courier New, monospace;
+            font-family: 'Courier New', monospace;
             font-weight: bold;
             word-break: break-word;
         }
 
-        .verified {
-            color: #00d64f;
+        .data-value a {
+            color: #00E6F0;
+            text-decoration: none;
+            font-size: 11px;
+            word-break: break-all;
         }
 
-        .cashtag {
-            color: #00d64f;
-            font-size: 18px;
+        .status-footer {
+            padding: 12px 20px;
+            background: #033556;
+            border-top: 1px solid #008BC4;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .status-label {
+            color: #00E6F0;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .badge-active {
+            background: #00E6F0;
+            color: #000;
+            border: 1px solid #00E6F0;
+        }
+
+        .badge-inactive {
+            background: #444;
+            color: #999;
+            border: 1px solid #555;
+        }
+
+        .export-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 12px 0 0;
+            border-top: 1px solid #1a5276;
+            margin-top: 12px;
+        }
+
+        .export-label {
+            color: #CCC;
+            font-size: 13px;
+            font-weight: 600;
+            margin-right: 2px;
+            white-space: nowrap;
+        }
+
+        .btn {
+            background: #00E6F0;
+            color: #022447;
+            border: none;
+            padding: 3px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            background: #008BC4;
+            color: #FFF;
+        }
+
+        .extracted-ts {
+            color: #CCC;
+            font-size: 11px;
+            margin-left: auto;
+            white-space: nowrap;
         }
 
         .error-message {
@@ -167,37 +233,12 @@
             margin: 20px;
         }
 
-        .btn-container {
-            margin-top: 15px;
-            text-align: left;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            margin-right: 10px;
-            margin-top: 5px;
-            background: #008BC4;
-            color: #FFF;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            text-decoration: none;
-            transition: background 0.3s;
-        }
-
-        .btn:hover {
-            background: #00E6F0;
-        }
-
         @media print {
             body {
                 background: #fff;
                 padding: 0;
             }
-            .warning, .btn-container {
+            .warning, .export-row {
                 display: none;
             }
             .container {
@@ -205,23 +246,18 @@
             }
         }
 
-        @media (max-width: 968px) {
+        @media (max-width: 680px) {
             .content-wrapper {
                 flex-direction: column;
             }
 
             .image-section {
-                max-width: 100%;
+                flex: 0 0 auto;
                 order: -1;
             }
 
             .container {
-                max-width: 95%;
                 margin-top: 120px;
-            }
-
-            h1 {
-                font-size: 1.5em;
             }
         }
     </style>
@@ -235,17 +271,125 @@
 
     <div class="container" id="mainContainer">
         <div class="header">
-            💰 Cash App Profile Viewer
-            <div class="header-text">Generated by a bookmarklet from <a href="https://tools.myosint.training">https://tools.myosint.training</a></div>
+            💸 Cash App Profile Viewer
+            <div class="header-text">Generated by a bookmarklet from https://tools.myosint.training</div>
         </div>
 
-        <div class="content-wrapper" id="content">
+        <div id="content">
             <!-- Content will be injected here by JavaScript -->
         </div>
     </div>
 
     <script>
-        function sanitize(s){if(!s)return '';const d=document.createElement('div');d.textContent=s;return d.innerHTML;}function isValidImageUrl(u){if(!u)return false;try{const o=new URL(u);const h=o.hostname.toLowerCase();return ['cash.app','cashapp.com','cloudfront.net','s3.amazonaws.com','franklin-assets.s3.amazonaws.com'].some(d=>h===d||h.endsWith('.'+d));}catch(e){return false;}}const XTA='window.crypto.subtle.importKey.sign';async function hmacSHA256(k,m){const e=new TextEncoder();const kd=e.encode(k);const md=e.encode(m);const ck=await crypto.subtle.importKey('raw',kd,{name:'HMAC',hash:'SHA-256'},false,['sign']);const s=await crypto.subtle.sign('HMAC',ck,md);const ha=Array.from(new Uint8Array(s));return ha.map(b=>b.toString(16).padStart(2,'0')).join('');}async function getParams(){const p=new URLSearchParams(window.location.search);const ed=p.get('data');const sig=p.get('sig');if(!ed){return {cashtag:'',name:'',verified:false,plan:'',country:'',image:'',tampered:false};}try{const jd=atob(ed);let t=false;if(sig){const es=await hmacSHA256(XTA,jd);if(sig!==es){t=true;console.warn('Signature verification failed!');}}const d=JSON.parse(jd);return {cashtag:d.cashtag||'',name:d.name||'',verified:d.verified==='1',plan:d.plan||'',country:d.country||'',image:d.image||'',tampered:t};}catch(e){console.error('Failed to decode data:',e);return {cashtag:'',name:'',verified:false,plan:'',country:'',image:'',tampered:true};}}async function renderProfile(){const d=await getParams();const c=document.getElementById('content');if(d.tampered){c.innerHTML='<div class="error-message"><h2>⚠️ Security Warning</h2><p><strong>Data signature verification failed!</strong></p><p>This URL may have been tampered with or corrupted.</p><p style="margin-top: 10px;">Please use the bookmarklet on cash.app to generate a new link.</p></div>';return;}if(!d.cashtag&&!d.name){c.innerHTML='<div class="error-message"><h2>❌ No Profile Data</h2><p>No profile information was provided in the URL.</p><p style="margin-top: 10px;">Use the Cash App bookmarklet on the <a href="https://tools.myosint.training">Tools page</a> to extract and view profile data.</p></div>';return;}let h='<div class="data-section"><h1>Cash App Profile Data</h1>';if(d.cashtag){h+='<div class="data-row"><span class="data-label">Cashtag: </span><strong class="data-value cashtag">'+sanitize(d.cashtag)+'</strong></div>';}if(d.name){h+='<div class="data-row"><span class="data-label">Display Name: </span><strong class="data-value">'+sanitize(d.name)+'</strong></div>';}h+='<div class="data-row"><span class="data-label">Verified Account: </span><strong class="data-value '+(d.verified?'verified':'')+'">';h+=d.verified?'✓':'✗';h+='</strong></div>';if(d.plan){h+='<div class="data-row"><span class="data-label">Rate Plan: </span><strong class="data-value">'+sanitize(d.plan)+'</strong></div>';}if(d.country){h+='<div class="data-row"><span class="data-label">Country Code: </span><strong class="data-value">'+sanitize(d.country)+'</strong></div>';}h+='<div class="btn-container"><button class="btn" onclick="window.print()">🖨️ Print</button><button class="btn" onclick="copyData()">📋 Copy Data</button></div></div>';h+='<div class="image-section">';if(d.image&&isValidImageUrl(d.image)){h+='<div class="profile-image"><img src="'+sanitize(d.image)+'" alt="Profile Image" id="profileImg"></div>';}else if(d.image){h+='<div class="profile-image"><div class="no-image">⚠️ Image URL blocked for security (invalid domain)</div></div>';}else{h+='<div class="profile-image"><div class="no-image">📷 No profile image available</div></div>';}h+='</div>';c.innerHTML=h;const img=document.getElementById('profileImg');if(img){img.onerror=function(){this.parentElement.innerHTML='<div class="no-image">❌ Failed to load image</div>';};}}async function copyData(){const d=await getParams();let t='Cash App Profile\n\n';if(d.cashtag)t+='Cashtag: '+d.cashtag+'\n';if(d.name)t+='Display Name: '+d.name+'\n';t+='Verified: '+(d.verified?'Yes':'No')+'\n';if(d.plan)t+='Rate Plan: '+d.plan+'\n';if(d.country)t+='Country: '+d.country+'\n';if(d.image)t+='Image URL: '+d.image+'\n';navigator.clipboard.writeText(t).then(()=>{alert('✓ Profile data copied to clipboard!');}).catch(()=>{const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);alert('✓ Profile data copied to clipboard!');});}renderProfile();
+        function sanitize(s){if(!s)return '';const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+        function isValidImageUrl(u){if(!u)return false;try{const o=new URL(u);const h=o.hostname.toLowerCase();return ['cash.app','cashapp.com','cloudfront.net','s3.amazonaws.com','franklin-assets.s3.amazonaws.com'].some(d=>h===d||h.endsWith('.'+d));}catch(e){return false;}}
+        const XTA='window.crypto.subtle.importKey.sign';
+        async function hmacSHA256(k,m){const e=new TextEncoder();const kd=e.encode(k);const md=e.encode(m);const ck=await crypto.subtle.importKey('raw',kd,{name:'HMAC',hash:'SHA-256'},false,['sign']);const s=await crypto.subtle.sign('HMAC',ck,md);const ha=Array.from(new Uint8Array(s));return ha.map(b=>b.toString(16).padStart(2,'0')).join('');}
+        async function getParams(){const p=new URLSearchParams(window.location.search);const ed=p.get('data');const sig=p.get('sig');if(!ed){return {cashtag:'',name:'',verified:false,plan:'',country:'',image:'',pageUrl:'',tampered:false};}try{const jd=atob(ed);let t=false;if(sig){const es=await hmacSHA256(XTA,jd);if(sig!==es){t=true;console.warn('Signature verification failed!');}}const d=JSON.parse(jd);return {cashtag:d.cashtag||'',name:d.name||'',verified:d.verified==='1',plan:d.plan||'',country:d.country||'',image:d.image||'',pageUrl:d.pageUrl||'',tampered:t};}catch(e){console.error('Failed to decode data:',e);return {cashtag:'',name:'',verified:false,plan:'',country:'',image:'',pageUrl:'',tampered:true};}}
+
+        function row(label,valueHtml){return '<div class="data-row">'+label+': <strong class="data-value">'+valueHtml+'</strong></div>';}
+
+        function mkBtn(id,label){return '<button id="'+id+'" class="btn">'+label+'</button>';}
+
+        let currentData=null;
+
+        async function renderProfile(){
+            const d=await getParams();
+            currentData=d;
+            const c=document.getElementById('content');
+            if(d.tampered){
+                c.innerHTML='<div class="error-message"><h2>⚠️ Security Warning</h2><p><strong>Data signature verification failed!</strong></p><p>This URL may have been tampered with or corrupted.</p><p style="margin-top:10px;">Please use the bookmarklet on cash.app to generate a new link.</p></div>';
+                return;
+            }
+            if(!d.cashtag&&!d.name){
+                c.innerHTML='<div class="error-message"><h2>❌ No Profile Data</h2><p>No profile information was provided in the URL.</p><p style="margin-top:10px;">Use the Cash App bookmarklet on the <a href="https://tools.myosint.training" style="color:#ffcccc;">Tools page</a> to extract and view profile data.</p></div>';
+                return;
+            }
+
+            const extractedAt=new Date().toLocaleString('en-US',{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit',timeZoneName:'short'});
+
+            let rowsHtml='<h1>Cash App Profile Data</h1>';
+            if(d.cashtag) rowsHtml+=row('Cashtag',sanitize(d.cashtag));
+            if(d.name) rowsHtml+=row('Display Name',sanitize(d.name));
+            if(d.plan) rowsHtml+=row('Rate Plan',sanitize(d.plan));
+            if(d.country) rowsHtml+=row('Country Code',sanitize(d.country));
+            if(d.pageUrl) rowsHtml+=row('Page URL','<a href="'+sanitize(d.pageUrl)+'" target="_blank" style="color:#00E6F0;text-decoration:none;font-size:11px;word-break:break-all;">'+sanitize(d.pageUrl)+'</a>');
+
+            rowsHtml+='<div class="export-row">'+
+                '<span class="export-label">Export:</span>'+
+                mkBtn('btnExpText','Text')+mkBtn('btnExpJson','JSON')+mkBtn('btnExpRow','Excel Row')+mkBtn('btnExpHdr','Excel Headers')+mkBtn('btnPrint','Print')+
+                '<span class="extracted-ts">Extracted: '+extractedAt+'</span>'+
+            '</div>';
+
+            let imageHtml;
+            if(d.image&&isValidImageUrl(d.image)){
+                imageHtml='<div class="profile-image"><img src="'+sanitize(d.image)+'" alt="Profile Image" id="profileImg"></div>';
+            }else if(d.image){
+                imageHtml='<div class="no-image">⚠️ Image URL blocked for security (invalid domain)</div>';
+            }else{
+                imageHtml='<div class="no-image">📷 No profile image available</div>';
+            }
+
+            const isVerified=!!d.verified;
+            const statusHtml='<div class="status-footer">'+
+                '<div class="status-label">Status:</div>'+
+                '<span class="badge '+(isVerified?'badge-active':'badge-inactive')+'">Verified</span>'+
+            '</div>';
+
+            document.getElementById('mainContainer').querySelector('#content').outerHTML =
+                '<div class="content-wrapper" id="content-wrapper">'+
+                    '<div class="data-section">'+rowsHtml+'</div>'+
+                    '<div class="image-section">'+imageHtml+'</div>'+
+                '</div>'+
+                statusHtml;
+
+            const img=document.getElementById('profileImg');
+            if(img){img.onerror=function(){this.parentElement.innerHTML='<div class="no-image">❌ Failed to load image</div>';};}
+
+            wireExportButtons(d);
+        }
+
+        function flashCopied(btn){
+            const orig=btn.textContent;
+            btn.textContent='✓';
+            btn.style.background='#008BC4';btn.style.color='#FFF';
+            setTimeout(()=>{btn.textContent=orig;btn.style.background='';btn.style.color='';},1500);
+        }
+
+        function copyText(str,btn){
+            navigator.clipboard.writeText(str).then(()=>flashCopied(btn)).catch(()=>{
+                const ta=document.createElement('textarea');
+                ta.value=str;ta.style.cssText='position:fixed;opacity:0;';
+                document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+                flashCopied(btn);
+            });
+        }
+
+        function wireExportButtons(d){
+            const fields=[
+                ['Cashtag',d.cashtag],['Display Name',d.name],['Verified',d.verified?'TRUE':'FALSE'],
+                ['Rate Plan',d.plan],['Country',d.country],['Avatar',d.image],['Page URL',d.pageUrl]
+            ];
+            document.getElementById('btnExpText').onclick=function(){
+                let t='Generated by a bookmarklet from https://tools.myosint.training\n\nCash App Profile\n\n';
+                fields.forEach(f=>{t+=f[0]+': '+(f[1]||'(not found)')+'\n';});
+                copyText(t,this);
+            };
+            document.getElementById('btnExpJson').onclick=function(){
+                const o={};fields.forEach(f=>{o[f[0]]=f[1]||'';});
+                copyText(JSON.stringify(o,null,2),this);
+            };
+            document.getElementById('btnExpRow').onclick=function(){
+                const san=s=>(s||'').replace(/\t/g,' ').replace(/\r?\n/g,' | ');
+                copyText(fields.map(f=>san(f[1])).join('\t'),this);
+            };
+            document.getElementById('btnExpHdr').onclick=function(){
+                copyText(fields.map(f=>f[0]).join('\t'),this);
+            };
+            document.getElementById('btnPrint').onclick=function(){window.print();};
+        }
+
+        renderProfile();
     </script>
 </body>
 </html>
