@@ -233,19 +233,6 @@
             margin: 20px;
         }
 
-        @media print {
-            body {
-                background: #fff;
-                padding: 0;
-            }
-            .warning, .export-row {
-                display: none;
-            }
-            .container {
-                border: 1px solid #000;
-            }
-        }
-
         @media (max-width: 680px) {
             .content-wrapper {
                 flex-direction: column;
@@ -317,7 +304,7 @@
 
             rowsHtml+='<div class="export-row">'+
                 '<span class="export-label">Export:</span>'+
-                mkBtn('btnExpText','Text')+mkBtn('btnExpJson','JSON')+mkBtn('btnExpRow','Excel Row')+mkBtn('btnExpHdr','Excel Headers')+mkBtn('btnPrint','Print')+
+                mkBtn('btnExpText','Text')+mkBtn('btnExpJson','JSON')+mkBtn('btnExpRow','Excel Row')+mkBtn('btnExpHdr','Excel Headers')+
                 '<span class="extracted-ts">Extracted: '+extractedAt+'</span>'+
             '</div>';
 
@@ -386,7 +373,6 @@
             document.getElementById('btnExpHdr').onclick=function(){
                 copyText(fields.map(f=>f[0]).join('\t'),this);
             };
-            document.getElementById('btnPrint').onclick=function(){window.print();};
         }
 
         renderProfile();
