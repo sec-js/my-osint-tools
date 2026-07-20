@@ -7,9 +7,10 @@ a browser-importable HTML file with proper folder hierarchy.
 
 import re
 import requests
+import hashlib
 from html import unescape
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
 from datetime import datetime, timezone
 import json
 
@@ -223,13 +224,14 @@ class BookmarkletExporter:
         def add_folder_recursively(folder_dict: Dict, indent: int = 1) -> None:
             indent_str = '    ' * indent
 
-            for folder_name, folder_content in folder_dict['folders'].items():
+            # Alphabetical, except "Social Media" is always pinned to the top.
+            for folder_name, folder_content in sorted(folder_dict['folders'].items(), key=lambda x: (x[0] != 'Social Media', x[0].lower())):
                 html_parts.append(f'{indent_str}<DT><H3>{self._escape_html(folder_name)}</H3>')
                 html_parts.append(f'{indent_str}<DL><p>')
                 add_folder_recursively(folder_content, indent + 1)
                 html_parts.append(f'{indent_str}</DL><p>')
 
-            for bookmark in folder_dict['bookmarklets']:
+            for bookmark in sorted(folder_dict['bookmarklets'], key=lambda b: b['title'].lower()):
                 escaped_title = self._escape_html(bookmark['title'])
                 escaped_code = self._escape_html(bookmark['code'])
 
@@ -262,19 +264,43 @@ class BookmarkletExporter:
                     .replace('"', '&quot;')
                     .replace("'", '&#39;'))
 
-    def write_version_json(self, iso_datetime: str, output_path: Path) -> None:
+    @staticmethod
+    def _compute_content_hash(bookmarklets: List[dict]) -> str:
+        """Hash of the extracted bookmarklets' actual content (title/code/folder),
+        independent of build time — used to detect whether anything worth a new
+        version actually changed, so a run where index.html's bookmarklets are
+        unchanged reuses the previous build timestamp and produces byte-identical
+        output (nothing for CI to commit)."""
+        canonical = json.dumps(
+            sorted(
+                ({'title': b['title'], 'code': b['code'], 'folder': b['folder']} for b in bookmarklets),
+                key=lambda b: (b['folder'], b['title'], b['code'])
+            ),
+            sort_keys=True
+        )
+        return hashlib.sha256(canonical.encode('utf-8')).hexdigest()
+
+    @staticmethod
+    def _read_previous_version(version_path: Path) -> Optional[dict]:
+        """Read a previously-written version.json, if present and well-formed"""
+        if not version_path.exists():
+            return None
+        try:
+            return json.loads(version_path.read_text(encoding='utf-8'))
+        except (json.JSONDecodeError, OSError):
+            return None
+
+    def write_version_json(self, iso_datetime: str, content_hash: str, output_path: Path) -> None:
         """Write version.json alongside the generated bookmarks file"""
         version_path = output_path.parent / 'version.json'
         version_path.write_text(
-            json.dumps({'built': iso_datetime}, indent=2),
+            json.dumps({'built': iso_datetime, 'content_hash': content_hash}, indent=2),
             encoding='utf-8'
         )
         print(f"✅ Written version.json: {iso_datetime}")
 
     def export(self, output_file: str = 'bookmarklets.html') -> str:
         """Main export method - orchestrates the entire process"""
-        iso_datetime = datetime.now(timezone.utc).replace(microsecond=0).strftime('%Y-%m-%dT%H:%M:%SZ')
-
         # Fetch and parse
         html = self.fetch_html()
         bookmarklets = self.extract_bookmarklets(html)
@@ -293,6 +319,23 @@ class BookmarkletExporter:
         # Wrap under parent folder
         structure = self.wrap_with_parent_folder(structure)
 
+        # Only mint a new build timestamp if the actual extracted bookmarklet
+        # content changed since the last run — otherwise reuse the previous
+        # timestamp so this run's output is byte-identical and CI has nothing
+        # new to commit (previously every run bumped the timestamp unconditionally,
+        # which meant every push to main triggered a follow-up bot commit).
+        output_path = Path(output_file)
+        version_path = output_path.parent / 'version.json'
+        content_hash = self._compute_content_hash(bookmarklets)
+        previous = self._read_previous_version(version_path)
+
+        if previous and previous.get('content_hash') == content_hash and previous.get('built'):
+            iso_datetime = previous['built']
+            print(f"No bookmarklet content changes detected — reusing build timestamp {iso_datetime}")
+        else:
+            iso_datetime = datetime.now(timezone.utc).replace(microsecond=0).strftime('%Y-%m-%dT%H:%M:%SZ')
+            print(f"Bookmarklet content changed — new build timestamp {iso_datetime}")
+
         # Add version-check bookmark at the end of the "My OSINT Bookmarklets" folder
         version_check_code = _VERSION_CHECK_JS.replace('__V__', iso_datetime)
         version_bookmark = {
@@ -305,12 +348,11 @@ class BookmarkletExporter:
         bookmark_html = self.generate_html(structure, iso_datetime)
 
         # Save bookmark HTML
-        output_path = Path(output_file)
         output_path.write_text(bookmark_html, encoding='utf-8')
         print(f"\n✅ Successfully exported {len(bookmarklets)} bookmarklets")
 
         # Write version.json alongside the HTML
-        self.write_version_json(iso_datetime, output_path)
+        self.write_version_json(iso_datetime, content_hash, output_path)
 
         return str(output_path.absolute())
 
